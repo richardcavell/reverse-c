@@ -2,7 +2,7 @@ reverse-c
 A program by Richard Cavell
 (c) 2017
 
-This is a simple program written in C89.
+This is a simple program written in standard C, dialect C89.
 
 It reads in the standard input, and prints the reverse of it on the
 standard output.

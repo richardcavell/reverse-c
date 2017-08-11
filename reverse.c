@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUF 1
+#define BUF 100
 
 struct block
 {
@@ -30,6 +30,10 @@ int main(void)
       if (q == NULL)
       {
         fprintf(stderr, "Error: Out of memory\n");
+
+        while (p)
+          { q = p->prev; free(p); p = q; }
+
         exit(EXIT_FAILURE);
       }
 
