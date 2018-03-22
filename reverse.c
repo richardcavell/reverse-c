@@ -11,54 +11,54 @@
 
 struct block
 {
-  struct block *prev;
-  char text[BUF];
+    struct block *prev;
+    char text[BUF];
 };
 
 int main(void)
 {
-  int c;
-  struct block *p = NULL;
-  char *t = NULL;
+    int c;
+    struct block *p = NULL;
+    char *t = NULL;
 
-  while ((c = getchar()) != EOF)
-  {
-    if (p == NULL || t == p->text)
+    while ((c = getchar()) != EOF)
     {
-      struct block *q = malloc(sizeof *q);
+        if (p == NULL || t == p->text)
+        {
+            struct block *q = malloc(sizeof *q);
 
-      if (q == NULL)
-      {
-        fprintf(stderr, "Error: Out of memory\n");
+            if (q == NULL)
+            {
+                fprintf(stderr, "Error: Out of memory\n");
 
-        while (p)
-          { q = p->prev; free(p); p = q; }
+                while (p)
+                    { q = p->prev; free(p); p = q; }
 
-        exit(EXIT_FAILURE);
-      }
+                exit(EXIT_FAILURE);
+            }
 
-      q->prev = p;
-      p = q;
-      t = &p->text[BUF];
+            q->prev = p;
+            p = q;
+            t = &p->text[BUF];
+        }
+
+        *--t = c;
     }
 
-    *--t = c;
-  }
+    while (p)
+    {
+        struct block *q = p->prev;
 
-  while (p)
-  {
-    struct block *q = p->prev;
+        while (t < &p->text[BUF])
+            putchar(*t++);
 
-    while (t < &p->text[BUF])
-      putchar(*t++);
+        free(p);
 
-    free(p);
+        p = q;
 
-    p = q;
+        if (p)
+            t = p->text;
+    }
 
-    if (p)
-      t = p->text;
-  }
-
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
