@@ -1,13 +1,17 @@
 reverse-c
 A program by Richard Cavell
-(c) 2017
+https://github.com/richardcavell/reverse-c
+(c) 2017-2018
 
 This is a simple program written in standard C, dialect C89.
 
 It reads in the standard input, and prints the reverse of it on the
 standard output.
 
-This program exists to demonstrate the algorithm. Please do not copy it.
-You may study the algorithm, and then implement it yourself.
+This program exists to demonstrate the algorithms used.  You are welcome to
+study the source code and the algorithms.
+
+My thanks to the wizards on the [c-prog] mailing list on Yahoo! Groups for
+their feedback.
 
 Richard Cavell
