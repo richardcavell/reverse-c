@@ -87,7 +87,7 @@ int main(void)
     /* Output and free the text_buffers */
     while (p)
     {
-        struct text_buffer *q = p->prev;
+        struct text_buffer *prev = p->prev;
 
         if (fwrite(&p->text[BUFFER_SIZE-nmemb], 1, nmemb, stdout) < nmemb)
         {
@@ -98,7 +98,7 @@ int main(void)
 
         free(p);
 
-        p = q;
+        p = prev;
         nmemb = BUFFER_SIZE;
     }
 
