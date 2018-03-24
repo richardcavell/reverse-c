@@ -10,33 +10,33 @@
 #include <stdlib.h>
 
 /* Increase this if you have RAM to spare */
-#define BUF 200
+#define BUFFER_SIZE 200
 
-struct block
+struct text_buffer
 {
-    struct block *prev;
-    char text[BUF];
+    struct text_buffer *prev;
+    char text[BUFFER_SIZE];
 };
 
-void free_all_blocks(struct block *p)
+void free_all_text_buffers(struct text_buffer *p)
 {
     while (p != NULL)
     {
-        struct block *prev = p->prev;
+        struct text_buffer *prev = p->prev;
         free(p);
         p = prev;
     }
 }
 
-struct block *alloc_block(struct block *p)
+struct text_buffer *alloc_text_buffer(struct text_buffer *p)
 {
-    struct block *q = malloc(sizeof *q);
+    struct text_buffer *q = malloc(sizeof *q);
 
     if (q == NULL) /* malloc() failed */
     {
         fprintf(stderr, "Error: Out of memory\n");
 
-        free_all_blocks(p);
+        free_all_text_buffers(p);
 
         exit(EXIT_FAILURE);
     }
@@ -46,11 +46,11 @@ struct block *alloc_block(struct block *p)
     return q;
 }
 
-void reverse_buffer(struct block *p)
+void reverse_buffer(struct text_buffer *p)
 {
     int i, j;
 
-    for (i = 0, j = BUF - 1;
+    for (i = 0, j = BUFFER_SIZE - 1;
          j > i;
          ++i, --j)
     {
@@ -62,37 +62,44 @@ void reverse_buffer(struct block *p)
 
 int main(void)
 {
-    struct block *p = NULL;
+    struct text_buffer *p = NULL;
     size_t nmemb;
 
-    /* Fill the blocks with text and reverse the text */
+    /* Fill the text_buffers with text and reverse the text */
     do
     {
-        p = alloc_block(p);
+        p = alloc_text_buffer(p);
 
         /* This is faster than a getchar() loop */
-        nmemb = fread(p->text, 1, BUF, stdin);
+        nmemb = fread(p->text, 1, BUFFER_SIZE, stdin);
+
+        if (ferror(stdin))
+        {
+            fprintf(stderr, "Error while reading input\n");
+            free_all_text_buffers(p);
+            return EXIT_FAILURE;
+        }
 
         reverse_buffer(p);
     }
-    while (nmemb == BUF);
+    while (nmemb == BUFFER_SIZE);
 
-    /* Output and free the blocks */
+    /* Output and free the text_buffers */
     while (p)
     {
-        struct block *q = p->prev;
+        struct text_buffer *q = p->prev;
 
-        if (fwrite(&p->text[BUF-nmemb], 1, nmemb, stdout) < nmemb)
+        if (fwrite(&p->text[BUFFER_SIZE-nmemb], 1, nmemb, stdout) < nmemb)
         {
             fprintf(stderr, "Error while writing output\n");
-            free_all_blocks(p);
+            free_all_text_buffers(p);
             return EXIT_FAILURE;
         }
 
         free(p);
 
         p = q;
-        nmemb = BUF;
+        nmemb = BUFFER_SIZE;
     }
 
     return EXIT_SUCCESS;
