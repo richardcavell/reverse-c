@@ -18,7 +18,7 @@ struct block
     char text[BUF];
 };
 
-void free_blocks(struct block *p)
+void free_all_blocks(struct block *p)
 {
     while (p != NULL)
     {
@@ -36,12 +36,13 @@ struct block *alloc_block(struct block *p)
     {
         fprintf(stderr, "Error: Out of memory\n");
 
-        free_blocks(p);
+        free_all_blocks(p);
 
         exit(EXIT_FAILURE);
     }
 
     q->prev = p;
+
     return q;
 }
 
@@ -84,7 +85,7 @@ int main(void)
         if (fwrite(&p->text[BUF-nmemb], 1, nmemb, stdout) < nmemb)
         {
             fprintf(stderr, "Error while writing output\n");
-            free_blocks(p);
+            free_all_blocks(p);
             return EXIT_FAILURE;
         }
 
