@@ -9,57 +9,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUF 100
+/* Increase this if you have enough RAM */
+#define BUFFER_SIZE 200
 
-struct block
+struct text_buffer
 {
-    struct block *prev;
-    char text[BUF];
+    struct text_buffer *prev;
+    char text[BUFFER_SIZE];
 };
 
 int main(void)
 {
     int c;
-    struct block *p = NULL;
-    char *t = NULL;
+    struct text_buffer *current_buffer = NULL;
+    char *current_pos = NULL;
 
+    /* Read in every char that is available, reversing as we go */
     while ((c = getchar()) != EOF)
     {
-        if (p == NULL || t == p->text)
+        if (current_buffer == NULL || current_pos == current_buffer->text)
         {
-            struct block *q = malloc(sizeof *q);
+            struct text_buffer *next_buffer = malloc(sizeof *next_buffer);
 
-            if (q == NULL)
+            if (next_buffer == NULL)
             {
                 fprintf(stderr, "Error: Out of memory\n");
 
-                while (p)
-                    { q = p->prev; free(p); p = q; }
+                while (current_buffer)
+                {
+                    struct text_buffer *prev = current_buffer->prev;
+                    free(current_buffer);
+                    current_buffer = prev;
+                }
 
                 exit(EXIT_FAILURE);
             }
 
-            q->prev = p;
-            p = q;
-            t = &p->text[BUF];
+            next_buffer->prev = current_buffer;
+            current_buffer = next_buffer;
+            current_pos = &current_buffer->text[BUFFER_SIZE];
         }
 
-        *--t = c;
+        *--current_pos = c;
     }
 
-    while (p)
+    /* Output and free every text buffer */
+    while (current_buffer)
     {
-        struct block *q = p->prev;
+        struct text_buffer *prev = current_buffer->prev;
 
-        while (t < &p->text[BUF])
-            putchar(*t++);
+        while (current_pos < &current_buffer->text[BUFFER_SIZE])
+            putchar(*current_pos++);
 
-        free(p);
+        free(current_buffer);
 
-        p = q;
+        current_buffer = prev;
 
-        if (p)
-            t = p->text;
+        if (current_buffer)
+            current_pos = current_buffer->text;
     }
 
     return EXIT_SUCCESS;
