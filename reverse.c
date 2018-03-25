@@ -35,7 +35,7 @@ struct text_buffer *alloc_text_buffer(struct text_buffer *p)
 
     if (q == NULL) /* malloc() failed */
     {
-        fprintf(stderr, "Error: Out of memory\n");
+        perror("Error: While trying to allocate another buffer");
 
         free_all_text_buffers(p);
 
