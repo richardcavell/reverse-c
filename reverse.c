@@ -29,18 +29,19 @@ void free_all_buffers(struct buffer *p)
     }
 }
 
+void error(const char *s, struct buffer *p)
+{
+    perror(s);
+    free_all_buffers(p);
+    exit(EXIT_FAILURE);
+}
+
 struct buffer *alloc_buffer(struct buffer *p)
 {
     struct buffer *q = malloc(sizeof *q);
 
     if (q == NULL) /* malloc() failed */
-    {
-        perror("Error: While trying to allocate another buffer");
-
-        free_all_buffers(p);
-
-        exit(EXIT_FAILURE);
-    }
+        error("Error while trying to allocate another buffer", p);
 
     q->prev = p;
 
@@ -75,11 +76,7 @@ int main(void)
         nmemb = fread(p->data, 1, BUFFER_SIZE, stdin);
 
         if (ferror(stdin))
-        {
-            fprintf(stderr, "Error while reading input\n");
-            free_all_buffers(p);
-            return EXIT_FAILURE;
-        }
+            error("Error while reading input", p); /* terminates */
 
         reverse_buffer(p);
     }
@@ -91,11 +88,7 @@ int main(void)
         struct buffer *prev = p->prev;
 
         if (fwrite(&p->data[BUFFER_SIZE-nmemb], 1, nmemb, stdout) < nmemb)
-        {
-            fprintf(stderr, "Error while writing output\n");
-            free_all_buffers(p);
-            return EXIT_FAILURE;
-        }
+            error("Error while writing output", p); /* terminates */
 
         free(p);
 
