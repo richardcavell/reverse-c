@@ -13,31 +13,31 @@
 /* Increase this if you have RAM to spare */
 #define BUFFER_SIZE 200
 
-struct text_buffer
+struct buffer
 {
-    struct text_buffer *prev;
-    char text[BUFFER_SIZE];
+    struct buffer *prev;
+    char data[BUFFER_SIZE];
 };
 
-void free_all_text_buffers(struct text_buffer *p)
+void free_all_buffers(struct buffer *p)
 {
     while (p != NULL)
     {
-        struct text_buffer *prev = p->prev;
+        struct buffer *prev = p->prev;
         free(p);
         p = prev;
     }
 }
 
-struct text_buffer *alloc_text_buffer(struct text_buffer *p)
+struct buffer *alloc_buffer(struct buffer *p)
 {
-    struct text_buffer *q = malloc(sizeof *q);
+    struct buffer *q = malloc(sizeof *q);
 
     if (q == NULL) /* malloc() failed */
     {
         perror("Error: While trying to allocate another buffer");
 
-        free_all_text_buffers(p);
+        free_all_buffers(p);
 
         exit(EXIT_FAILURE);
     }
@@ -47,7 +47,7 @@ struct text_buffer *alloc_text_buffer(struct text_buffer *p)
     return q;
 }
 
-void reverse_buffer(struct text_buffer *p)
+void reverse_buffer(struct buffer *p)
 {
     int i, j;
 
@@ -55,29 +55,29 @@ void reverse_buffer(struct text_buffer *p)
          j > i;
          ++i, --j)
     {
-        char tmp   = p->text[i];
-        p->text[i] = p->text[j];
-        p->text[j] = tmp;
+        char tmp   = p->data[i];
+        p->data[i] = p->data[j];
+        p->data[j] = tmp;
     }
 }
 
 int main(void)
 {
-    struct text_buffer *p = NULL;
+    struct buffer *p = NULL;
     size_t nmemb;
 
-    /* Fill the text_buffers with text and reverse the text */
+    /* Fill the buffers with data and reverse the data */
     do
     {
-        p = alloc_text_buffer(p);
+        p = alloc_buffer(p);
 
         /* This is faster than a getchar() loop */
-        nmemb = fread(p->text, 1, BUFFER_SIZE, stdin);
+        nmemb = fread(p->data, 1, BUFFER_SIZE, stdin);
 
         if (ferror(stdin))
         {
             fprintf(stderr, "Error while reading input\n");
-            free_all_text_buffers(p);
+            free_all_buffers(p);
             return EXIT_FAILURE;
         }
 
@@ -85,15 +85,15 @@ int main(void)
     }
     while (nmemb == BUFFER_SIZE);
 
-    /* Output and free the text_buffers */
+    /* Output and free the buffers */
     while (p)
     {
-        struct text_buffer *prev = p->prev;
+        struct buffer *prev = p->prev;
 
-        if (fwrite(&p->text[BUFFER_SIZE-nmemb], 1, nmemb, stdout) < nmemb)
+        if (fwrite(&p->data[BUFFER_SIZE-nmemb], 1, nmemb, stdout) < nmemb)
         {
             fprintf(stderr, "Error while writing output\n");
-            free_all_text_buffers(p);
+            free_all_buffers(p);
             return EXIT_FAILURE;
         }
 
