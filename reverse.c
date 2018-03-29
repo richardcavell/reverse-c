@@ -10,8 +10,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Increase this if you have RAM to spare */
+/* Set BUFFER_SIZE to a higher value if you have RAM to spare */
+#ifndef BUFFER_SIZE
 #define BUFFER_SIZE 200
+#endif
 
 struct buffer
 {
