@@ -4,9 +4,13 @@
 CFLAGS += -std=c89 -pedantic
 CFLAGS += -Wall -Werror -Wextra
 
-all: reverse
+.DEFAULT: all
+.PHONY:   all
+all:      reverse
 
-reverse: reverse.c reverse.h
+reverse:  reverse.c reverse.h
 	$(CC) $(CFLAGS) $< $(OUTPUT_OPTION)
+
+.PHONY: clean
 clean:
 	$(RM) reverse
