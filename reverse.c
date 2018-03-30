@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "reverse.h"
 
 /* Set BUFFER_SIZE to a higher value if you have RAM to spare */
 #ifndef BUFFER_SIZE
@@ -21,31 +22,35 @@ struct buffer
     char data[BUFFER_SIZE];
 };
 
-void free_all_buffers(struct buffer *p)
+void free_all_buffers(struct buffer *pbuf)
 {
-    while (p != NULL)
+    while (pbuf != NULL)
     {
-        struct buffer *prev = p->prev;
-        free(p);
-        p = prev;
+        struct buffer *prev = pbuf->prev;
+        free(pbuf);
+        pbuf = prev;
     }
 }
 
-void error(const char *s, struct buffer *p)
+  /* Does not return */
+void error(const char *str, struct buffer *pbuf, const int code)
 {
-    perror(s);
-    free_all_buffers(p);
-    exit(EXIT_FAILURE);
+    perror(str);
+    free_all_buffers(pbuf);
+
+    /* The operating system receives a fail code */
+    exit(code);
 }
 
-struct buffer *alloc_buffer(struct buffer *p)
+struct buffer *alloc_buffer(struct buffer *pbuf)
 {
     struct buffer *q = malloc(sizeof *q);
 
     if (q == NULL) /* malloc() failed */
-        error("Error while trying to allocate another buffer", p);
+        error("Error while trying to allocate another buffer", pbuf,
+               RVRS_FAIL_MALLOC);
 
-    q->prev = p;
+    q->prev = pbuf;
 
     return q;
 }
@@ -78,7 +83,8 @@ int main(void)
         nmemb = fread(p->data, 1, BUFFER_SIZE, stdin);
 
         if (ferror(stdin))
-            error("Error while reading input", p); /* terminates */
+            error("Error while reading input", p,
+                   RVRS_FAIL_INPUT); /* terminates */
 
         reverse_buffer(p);
     }
@@ -90,7 +96,8 @@ int main(void)
         struct buffer *prev = p->prev;
 
         if (fwrite(&p->data[BUFFER_SIZE-nmemb], 1, nmemb, stdout) < nmemb)
-            error("Error while writing output", p); /* terminates */
+            error("Error while writing output", p,
+                   RVRS_FAIL_OUTPUT); /* terminates */
 
         free(p);
 

@@ -6,7 +6,7 @@ CFLAGS += -Wall -Werror -Wextra
 
 all: reverse
 
-reverse: reverse.c
-
+reverse: reverse.c reverse.h
+	$(CC) $(CFLAGS) $< $(OUTPUT_OPTION)
 clean:
 	$(RM) reverse
