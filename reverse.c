@@ -50,6 +50,7 @@ struct buffer *alloc_buffer(struct buffer *pbuf)
         error("Error while trying to allocate memory", pbuf,
                RVRS_FAIL_MALLOC);
 
+    /* We create a single-linked list, first-in-last-out */
     pnew->prev = pbuf;
 
     return pnew;
