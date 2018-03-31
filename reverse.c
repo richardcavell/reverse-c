@@ -63,9 +63,9 @@ void reverse_buffer(struct buffer *pbuf)
          j > i;
          ++i, --j)
     {
-        char tmp      = pbuf->data[i];
-        pbuf->data[i] = pbuf->data[j];
-        pbuf->data[j] = tmp;
+        const char tmp = pbuf->data[i];
+        pbuf->data[i]  = pbuf->data[j];
+        pbuf->data[j]  = tmp;
     }
 }
 
