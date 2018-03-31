@@ -44,28 +44,28 @@ void error(const char *str, struct buffer *pbuf, const int code)
 
 struct buffer *alloc_buffer(struct buffer *pbuf)
 {
-    struct buffer *q = malloc(sizeof *q);
+    struct buffer *pnew = malloc(sizeof *pnew);
 
-    if (q == NULL) /* malloc() failed */
-        error("Error while trying to allocate another buffer", pbuf,
+    if (pnew == NULL) /* malloc() failed */
+        error("Error while trying to allocate memory", pbuf,
                RVRS_FAIL_MALLOC);
 
-    q->prev = pbuf;
+    pnew->prev = pbuf;
 
-    return q;
+    return pnew;
 }
 
-void reverse_buffer(struct buffer *p)
+void reverse_buffer(struct buffer *pbuf)
 {
-    int i, j;
+    size_t i, j;
 
     for (i = 0, j = BUFFER_SIZE - 1;
          j > i;
          ++i, --j)
     {
-        char tmp   = p->data[i];
-        p->data[i] = p->data[j];
-        p->data[j] = tmp;
+        char tmp      = pbuf->data[i];
+        pbuf->data[i] = pbuf->data[j];
+        pbuf->data[j] = tmp;
     }
 }
 
