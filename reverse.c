@@ -18,22 +18,22 @@
 
 struct buffer
 {
-    struct buffer *prev;
+    struct buffer * prev;
     char data[BUFFER_SIZE];
 };
 
-void free_all_buffers(struct buffer *pbuf)
+void free_all_buffers(struct buffer * pbuf)
 {
     while (pbuf != NULL)
     {
-        struct buffer *prev = pbuf->prev;
+        struct buffer * prev = pbuf->prev;
         free(pbuf);
         pbuf = prev;
     }
 }
 
   /* Does not return */
-void error(const char *str, struct buffer *pbuf, const int code)
+void error(const char * str, struct buffer * pbuf, const int code)
 {
     perror(str);
     free_all_buffers(pbuf);
@@ -42,9 +42,9 @@ void error(const char *str, struct buffer *pbuf, const int code)
     exit(code);
 }
 
-struct buffer *alloc_buffer(struct buffer *pbuf)
+struct buffer * alloc_buffer(struct buffer * pbuf)
 {
-    struct buffer *pnew = malloc(sizeof *pnew);
+    struct buffer * pnew = malloc(sizeof *pnew);
 
     if (pnew == NULL) /* malloc() failed */
         error("Error while trying to allocate memory", pbuf,
@@ -56,7 +56,7 @@ struct buffer *alloc_buffer(struct buffer *pbuf)
     return pnew;
 }
 
-void reverse_buffer(struct buffer *pbuf)
+void reverse_buffer(struct buffer * pbuf)
 {
     size_t i, j;
 
@@ -72,37 +72,38 @@ void reverse_buffer(struct buffer *pbuf)
 
 int main(void)
 {
-    struct buffer *p = NULL;
+    struct buffer * pbuf = NULL;
     size_t nmemb;
 
     /* Fill the buffers with data and reverse the data */
     do
     {
-        p = alloc_buffer(p);
+        pbuf = alloc_buffer(pbuf);
 
         /* This is faster than a getchar() loop */
-        nmemb = fread(p->data, 1, BUFFER_SIZE, stdin);
+        nmemb = fread(pbuf->data, sizeof(char), BUFFER_SIZE, stdin);
 
         if (ferror(stdin))
-            error("Error while reading input", p,
+            error("Error while reading input", pbuf,
                    RVRS_FAIL_INPUT); /* terminates */
 
-        reverse_buffer(p);
+        reverse_buffer(pbuf);
     }
     while (nmemb == BUFFER_SIZE);
 
     /* Output and free the buffers */
-    while (p)
+    while (pbuf)
     {
-        struct buffer *prev = p->prev;
+        struct buffer * prev = pbuf->prev;
 
-        if (fwrite(&p->data[BUFFER_SIZE-nmemb], 1, nmemb, stdout) < nmemb)
-            error("Error while writing output", p,
+        if (fwrite(&pbuf->data[BUFFER_SIZE-nmemb],
+                   sizeof(char), nmemb, stdout) < nmemb)
+            error("Error while writing output", pbuf,
                    RVRS_FAIL_OUTPUT); /* terminates */
 
-        free(p);
+        free(pbuf);
 
-        p = prev;
+        pbuf = prev;
         nmemb = BUFFER_SIZE;
     }
 
