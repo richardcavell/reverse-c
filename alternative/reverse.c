@@ -11,7 +11,9 @@
 #include <stdlib.h>
 
 /* Increase this if you have enough RAM */
+#ifndef BUFFER_SIZE
 #define BUFFER_SIZE 200
+#endif
 
 struct buffer
 {
