@@ -1,11 +1,15 @@
 # Makefile for reverse-c (alternative version)
 # Richard Cavell (c) 2017-2018
 
-CC     += -std=c89 -pedantic
+CFLAGS += -std=c89 -pedantic
 CFLAGS += -Wall -Werror -Wextra
 
-reverse: reverse.c
-	$(CC) $(CFLAGS) $^ $(OUTPUT_OPTION)
+.DEFAULT: all
+.PHONY:   all
+all: reverse
 
+reverse: reverse.c
+
+.PHONY: clean
 clean:
 	$(RM) reverse

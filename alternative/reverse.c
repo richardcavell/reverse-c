@@ -1,5 +1,5 @@
 /* reverse.c (alternative version)
- * Version 1.0 (24 March 2018)
+ * Version 1.1 (1 April 2018)
  *
  * A program by Richard Cavell
  * (c) 2017-2018
@@ -13,24 +13,24 @@
 /* Increase this if you have enough RAM */
 #define BUFFER_SIZE 200
 
-struct text_buffer
+struct buffer
 {
-    struct text_buffer *prev;
+    struct buffer * prev;
     char text[BUFFER_SIZE];
 };
 
 int main(void)
 {
     int c;
-    struct text_buffer *current_buffer = NULL;
-    char *current_pos = NULL;
+    struct buffer * current_buffer = NULL;
+    char * current_pos = NULL;
 
     /* Read in every char that is available, reversing as we go */
     while ((c = getchar()) != EOF)
     {
         if (current_buffer == NULL || current_pos == current_buffer->text)
         {
-            struct text_buffer *next_buffer = malloc(sizeof *next_buffer);
+            struct buffer * next_buffer = malloc(sizeof *next_buffer);
 
             if (next_buffer == NULL)
             {
@@ -38,7 +38,7 @@ int main(void)
 
                 while (current_buffer)
                 {
-                    struct text_buffer *prev = current_buffer->prev;
+                    struct buffer * prev = current_buffer->prev;
                     free(current_buffer);
                     current_buffer = prev;
                 }
@@ -57,7 +57,7 @@ int main(void)
     /* Output and free every text buffer */
     while (current_buffer)
     {
-        struct text_buffer *prev = current_buffer->prev;
+        struct buffer * prev = current_buffer->prev;
 
         while (current_pos < &current_buffer->text[BUFFER_SIZE])
             putchar(*current_pos++);

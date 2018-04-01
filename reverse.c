@@ -1,5 +1,5 @@
 /* reverse.c
- * version 1.0 (24 March 2018)
+ * version 1.1 (1 April 2018)
  *
  * A program by Richard Cavell
  * (c) 2017-2018
