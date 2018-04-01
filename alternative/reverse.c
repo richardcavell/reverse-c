@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "reverse.h"
 
 /* Increase this if you have enough RAM */
 #ifndef BUFFER_SIZE
@@ -45,7 +46,7 @@ int main(void)
                     current_buffer = prev;
                 }
 
-                exit(EXIT_FAILURE);
+                exit(RVRS_FAIL_MALLOC);
             }
 
             next_buffer->prev = current_buffer;
