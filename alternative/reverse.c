@@ -28,7 +28,8 @@ int main(void)
     struct buffer * current_buffer = NULL;
     char * current_pos = NULL;
 
-    /* Read in every char that is available, reversing as we go */
+    /* Read in every char that is available,
+     * allocating a new buffer when necessary */
     while ((c = getchar()) != EOF)
     {
         if (current_buffer == NULL || current_pos == current_buffer->text)
@@ -54,6 +55,7 @@ int main(void)
             current_pos = &current_buffer->text[BUFFER_SIZE];
         }
 
+        /* Push the chars into the buffer in reverse order */
         *--current_pos = c;
     }
 
