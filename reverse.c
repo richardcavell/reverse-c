@@ -56,7 +56,7 @@ static struct buffer * alloc_buffer(struct buffer * pbuf)
     return pnew;
 }
 
-static void reverse_buffer(struct buffer * pbuf)
+static void reverse_buffer(struct buffer * const pbuf)
 {
     size_t i, j;
 
