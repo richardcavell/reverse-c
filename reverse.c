@@ -35,7 +35,11 @@ static void free_all_buffers(struct buffer * pbuf)
   /* Does not return */
 static void error(const char * str, struct buffer * pbuf, const int code)
 {
+  /* The only way we end up calling error() is if a library call returns
+     disappointment. It might be that the library call set errno to
+     something informative, but there's no guarantee */
     perror(str);
+
     free_all_buffers(pbuf);
 
     /* The operating system receives a fail code */
