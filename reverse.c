@@ -22,7 +22,7 @@ struct buffer
     char data[BUFFER_SIZE];
 };
 
-void free_all_buffers(struct buffer * pbuf)
+static void free_all_buffers(struct buffer * pbuf)
 {
     while (pbuf != NULL)
     {
@@ -33,7 +33,7 @@ void free_all_buffers(struct buffer * pbuf)
 }
 
   /* Does not return */
-void error(const char * str, struct buffer * pbuf, const int code)
+static void error(const char * str, struct buffer * pbuf, const int code)
 {
     perror(str);
     free_all_buffers(pbuf);
@@ -42,7 +42,7 @@ void error(const char * str, struct buffer * pbuf, const int code)
     exit(code);
 }
 
-struct buffer * alloc_buffer(struct buffer * pbuf)
+static struct buffer * alloc_buffer(struct buffer * pbuf)
 {
     struct buffer * pnew = malloc(sizeof *pnew);
 
@@ -56,7 +56,7 @@ struct buffer * alloc_buffer(struct buffer * pbuf)
     return pnew;
 }
 
-void reverse_buffer(struct buffer * pbuf)
+static void reverse_buffer(struct buffer * pbuf)
 {
     size_t i, j;
 
