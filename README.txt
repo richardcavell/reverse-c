@@ -9,8 +9,9 @@ in the standard input, and prints the byte-for-byte reverse of it on the
 standard output.  It can be used on any type of data. It is good for
 reversing text input, as long as you are not using "wide characters".
 
-The program should compile on anything. You can use GNU make to compile
-simply by typing "make".
+The program should compile on any operating system or type of machine. It
+relies only on the standard library. You can use GNU make to compile simply
+by typing "make".
 
 This program exists to demonstrate the algorithms used.  You are welcome to
 study the source code and the algorithms.
