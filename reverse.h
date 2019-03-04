@@ -1,7 +1,8 @@
 /* reverse.h
  * version 1.1 (1 April 2018)
  *
- * A program by Richard Cavell
+ * Part of reverse-c, which is
+ * a program by Richard Cavell
  * (c) 2017-2018
  *
  * https://github.com/richardcavell/reverse-c
