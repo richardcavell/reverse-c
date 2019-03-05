@@ -19,7 +19,7 @@
 
 struct buffer
 {
-    struct buffer * prev;
+    struct buffer * prev;      /* If NULL, then this is the first buffer */
     char data[BUFFER_SIZE];
 };
 
@@ -36,9 +36,10 @@ static void free_all_buffers(struct buffer * pbuf)
   /* Does not return */
 static void error(const char * str, struct buffer * pbuf, const int code)
 {
-  /* The only way we end up calling error() is if a library call returns
+  /* The only way we end up in here is if a library call returns
      disappointment. It might be that the library call set errno to
      something informative, but there's no guarantee */
+
     perror(str);
 
     free_all_buffers(pbuf);
