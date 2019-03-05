@@ -27,7 +27,7 @@ static void free_all_buffers(struct buffer * pbuf)
 {
     while (pbuf != NULL)
     {
-        struct buffer * prev = pbuf->prev;
+        struct buffer * const prev = pbuf->prev;
         free(pbuf);
         pbuf = prev;
     }
