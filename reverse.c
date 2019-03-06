@@ -48,9 +48,9 @@ static void error(const char * str, struct buffer * pbuf, const int code)
     exit(code);
 }
 
-static struct buffer * alloc_buffer(struct buffer * pbuf)
+static struct buffer * alloc_buffer(struct buffer * const pbuf)
 {
-    struct buffer * pnew = malloc(sizeof *pnew);
+    struct buffer * const pnew = malloc(sizeof *pnew);
 
     if (pnew == NULL) /* malloc() failed */
         error("Error while trying to allocate memory", pbuf,
