@@ -100,7 +100,7 @@ int main(void)
     /* Output and free the buffers */
     while (pbuf)
     {
-        struct buffer * prev = pbuf->prev;
+        struct buffer * const prev = pbuf->prev;
 
         if (fwrite(&pbuf->data[BUFFER_SIZE-nmemb],
                    sizeof(char), nmemb, stdout) < nmemb)
