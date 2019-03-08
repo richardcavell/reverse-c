@@ -6,10 +6,11 @@ CFLAGS += -Wall -Werror -Wextra
 
 .DEFAULT: all
 .PHONY:   all
-all: reverse
 
+all: reverse
 reverse: reverse.c
 
 .PHONY: clean
+
 clean:
 	$(RM) reverse
