@@ -18,7 +18,7 @@
 
 struct buffer
 {
-    struct buffer * prev;
+    struct buffer * prev;        /* If NULL, then this is the first buffer */
     char text[BUFFER_SIZE];
 };
 
