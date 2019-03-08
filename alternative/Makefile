@@ -1,5 +1,5 @@
 # Makefile for reverse-c (alternative version)
-# Richard Cavell (c) 2017-2018
+# Richard Cavell (c) 2017-2019
 
 CFLAGS += -std=c89 -pedantic
 CFLAGS += -Wall -Werror -Wextra

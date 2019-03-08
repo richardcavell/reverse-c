@@ -1,7 +1,7 @@
 reverse-c
 A program by Richard Cavell
 https://github.com/richardcavell/reverse-c
-(c) 2017-2018
+(c) 2017-2019
 Version 1.1 (1 April 2018)
 
 This is a simple program written in standard C, dialect C89.  It reads
@@ -20,6 +20,6 @@ My thanks to the wizards on the [c-prog] mailing list on Yahoo! Groups, and
 kate from IRC, for their feedback.
 
 This project is complete. It is actively maintained by me. The last review
-occurred in February 2019.
+occurred in March 2019.
 
 Richard Cavell
