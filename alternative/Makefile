@@ -8,7 +8,8 @@ CFLAGS += -Wall -Werror -Wextra
 .PHONY:   all
 
 all: reverse
-reverse: reverse.c
+reverse: reverse.c reverse.h
+	$(CC) $(CFLAGS) $< $(OUTPUT_OPTION)
 
 .PHONY: clean
 
