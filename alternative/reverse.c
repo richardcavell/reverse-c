@@ -34,7 +34,7 @@ int main(void)
     {
         if (current_buffer == NULL || current_pos == current_buffer->text)
         {
-            struct buffer * next_buffer = malloc(sizeof *next_buffer);
+            struct buffer * const next_buffer = malloc(sizeof *next_buffer);
 
             if (next_buffer == NULL)
             {
@@ -42,7 +42,7 @@ int main(void)
 
                 while (current_buffer)
                 {
-                    struct buffer * prev = current_buffer->prev;
+                    struct buffer * const prev = current_buffer->prev;
                     free(current_buffer);
                     current_buffer = prev;
                 }
@@ -62,7 +62,7 @@ int main(void)
     /* Output and free every text buffer */
     while (current_buffer)
     {
-        struct buffer * prev = current_buffer->prev;
+        struct buffer * const prev = current_buffer->prev;
 
         while (current_pos < &current_buffer->text[BUFFER_SIZE])
             putchar(*current_pos++);
