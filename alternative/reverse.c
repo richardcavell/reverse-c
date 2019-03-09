@@ -38,7 +38,7 @@ int main(void)
 
             if (next_buffer == NULL)
             {
-                fprintf(stderr, "Error: Out of memory\n");
+                perror("Error: Out of memory");
 
                 while (current_buffer)
                 {
