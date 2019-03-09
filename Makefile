@@ -6,11 +6,11 @@ CFLAGS += -Wall -Werror -Wextra
 
 .DEFAULT: all
 .PHONY:   all
-all:      reverse
 
+all:      reverse
 reverse:  reverse.c reverse.h
 	$(CC) $(CFLAGS) $< $(OUTPUT_OPTION)
 
-.PHONY: clean
+.PHONY:   clean
 clean:
 	$(RM) reverse
