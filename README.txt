@@ -2,7 +2,7 @@ reverse-c
 A program by Richard Cavell
 https://github.com/richardcavell/reverse-c
 (c) 2017-2019
-Version 1.1 (1 April 2018)
+Version 1.2 (9 March 2019)
 
 This is a simple program written in standard C, dialect C89.  It reads
 in the standard input, and prints the byte-for-byte reverse of it on the
