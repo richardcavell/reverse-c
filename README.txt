@@ -20,6 +20,6 @@ My thanks to the wizards on the [c-prog] mailing list on Yahoo! Groups, and
 kate from IRC, for their feedback.
 
 This project is complete. It is actively maintained by me. The last review
-occurred in March 2019.
+occurred in April 2019.
 
 Richard Cavell
