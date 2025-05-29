@@ -1,9 +1,9 @@
 /* reverse.c
- * version 1.2 (9 March 2019)
+ * version 1.3 (29 March 2025)
  *
  * Part of reverse-c, which is
  * a program by Richard Cavell
- * (c) 2017-2019
+ * (c) 2017-2025
  *
  * https://github.com/richardcavell/reverse-c
  */
@@ -14,7 +14,7 @@
 
 /* Set BUFFER_SIZE to a higher value if you have RAM to spare */
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 200
+#define BUFFER_SIZE 3000
 #endif
 
 struct buffer
@@ -33,7 +33,7 @@ static void free_all_buffers(struct buffer * pbuf)
     }
 }
 
-  /* Does not return */
+/* Does not return */
 static void error(const char * str, struct buffer * pbuf, const int code)
 {
   /* The only way we end up in here is if a library call returns
@@ -44,7 +44,7 @@ static void error(const char * str, struct buffer * pbuf, const int code)
 
     free_all_buffers(pbuf);
 
-    /* The operating system receives a fail code */
+    /* The operating system receives a failure code */
     exit(code);
 }
 
