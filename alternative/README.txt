@@ -1,8 +1,8 @@
 reverse-c (alternative version)
 A program by Richard Cavell
 https://github.com/richardcavell/reverse-c
-(c) 2017-2019
-Version 1.2 (9 March 2019)
+(c) 2017-2025
+Version 1.3 (30 May 2025)
 
 This alternative version of reverse uses getchar() and putchar() instead of
 fread() and fwrite().

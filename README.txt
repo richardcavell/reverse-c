@@ -16,7 +16,8 @@ by typing "make".
 This program exists to demonstrate the algorithms used.  You are welcome to
 study the source code and the algorithms.
 
-There is also a C++ version of this program.
+There is an alternative version of this program that uses getchar()
+and putchar().  There is also a C++ version of this program.
 
 My thanks to the wizards on the [c-prog] mailing list on Yahoo! Groups, and
 kate from IRC, for their feedback.

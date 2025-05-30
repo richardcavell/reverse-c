@@ -1,8 +1,8 @@
 /* reverse.c (alternative version)
- * Version 1.2 (9 March 2019)
+ * Version 1.3 (30 May 2025)
  *
  * A program by Richard Cavell
- * (c) 2017-2019
+ * (c) 2017-2025
  *
  * https://github.com/richardcavell
  */
@@ -13,7 +13,7 @@
 
 /* Increase this if you have enough RAM */
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 200
+#define BUFFER_SIZE 3000
 #endif
 
 struct buffer
